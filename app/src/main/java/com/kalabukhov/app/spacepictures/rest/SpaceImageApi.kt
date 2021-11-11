@@ -1,6 +1,6 @@
 package com.kalabukhov.app.spacepictures.rest
 
-import com.kalabukhov.app.spacepictures.domain.ImageSpaceEntity
+import com.kalabukhov.app.spacepictures.domain.entity.ImageSpaceEntity
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Query

@@ -29,22 +29,27 @@
             android:background="#663b4351"
             android:layout_gravity="center_horizontal" />
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="@dimen/dimen_16dp"
+            android:layout_height="match_parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/bottom_sheet_line">
 
-            <TextView
-                android:id="@+id/text_space_text_view"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                style="@style/TextText"
-                android:text="@string/app_name"/>
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/dimen_16dp">
 
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/text_space_text_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    style="@style/TextText"
+                    android:text="@string/app_name"/>
+
+            </LinearLayout>
+        </ScrollView>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

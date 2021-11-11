@@ -1,7 +1,8 @@
 package com.kalabukhov.app.spacepictures.ui.main
 
 import com.kalabukhov.app.spacepictures.App
-import com.kalabukhov.app.spacepictures.domain.ImageSpaceEntity
+import com.kalabukhov.app.spacepictures.domain.entity.ImageSpaceDbEntity
+import com.kalabukhov.app.spacepictures.domain.entity.ImageSpaceEntity
 import moxy.MvpPresenter
 import moxy.MvpView
 import moxy.viewstate.strategy.alias.AddToEnd
@@ -9,7 +10,7 @@ import moxy.viewstate.strategy.alias.AddToEnd
 class MainContract {
 
     enum class ViewState {
-        LOADING, SUCCESSFUL, ERROR
+        LOADING, SUCCESSFUL, ERROR, DOWNLOAD
     }
 
     interface View: MvpView {
@@ -26,5 +27,6 @@ class MainContract {
     abstract class Presenter: MvpPresenter<View>() {
         abstract fun onProfileActivity()
         abstract fun onLoadImageWeb(app: App, dateNow: String)
+        abstract fun onSaveImageDb(app: App)
     }
 }

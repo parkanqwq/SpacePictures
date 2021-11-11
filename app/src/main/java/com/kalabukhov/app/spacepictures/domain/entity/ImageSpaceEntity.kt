@@ -1,4 +1,4 @@
-package com.kalabukhov.app.spacepictures.domain
+package com.kalabukhov.app.spacepictures.domain.entity
 
 import com.squareup.moshi.Json
 

@@ -3,24 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/action_profile_menu"
+        android:id="@+id/action_delete_image_menu"
         android:icon="@android:drawable/ic_menu_info_details"
         android:orderInCategory="1"
-        android:title="@string/profile"
+        android:title="@string/delete"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         />
 
     <item
-        android:id="@+id/action_save_menu"
+        android:id="@+id/action_download_image_menu"
+        android:icon="@android:drawable/ic_menu_info_details"
         android:orderInCategory="2"
-        android:title="@string/save_image"
-        app:actionViewClass="androidx.appcompat.widget.SearchView"
-        />
-
-    <item
-        android:id="@+id/action_history_menu"
-        android:orderInCategory="3"
-        android:title="@string/history"
+        android:title="@string/download_image"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         />
 </menu>

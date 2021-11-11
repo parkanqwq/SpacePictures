@@ -13,7 +13,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.kalabukhov.app.spacepictures.R
 import com.kalabukhov.app.spacepictures.app
 import com.kalabukhov.app.spacepictures.databinding.ActivityMainBinding
-import com.kalabukhov.app.spacepictures.domain.ImageSpaceEntity
+import com.kalabukhov.app.spacepictures.domain.entity.ImageSpaceEntity
 import com.squareup.picasso.Picasso
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
@@ -90,6 +90,10 @@ class MainActivity : MvpAppCompatActivity(), MainContract.View {
             MainContract.ViewState.LOADING -> {
                 binding.progressBar.visibility = View.VISIBLE
             }
+            MainContract.ViewState.DOWNLOAD -> {
+                Toast.makeText(this, resources.getText(R.string.successful),
+                    Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
@@ -131,6 +135,9 @@ class MainActivity : MvpAppCompatActivity(), MainContract.View {
             R.id.action_history_menu -> {
                 bottomSheetBehavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
                 return true
+            }
+            R.id.action_save_menu -> {
+                presenter.onSaveImageDb(app)
             }
         }
         return false
