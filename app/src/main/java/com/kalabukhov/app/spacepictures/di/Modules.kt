@@ -10,8 +10,8 @@ import com.kalabukhov.app.spacepictures.IScreens
 import com.kalabukhov.app.spacepictures.data.ImageSpaceDao
 import com.kalabukhov.app.spacepictures.data.ImageSpaceDb
 import com.kalabukhov.app.spacepictures.domain.ImageSpaceRepo
-import com.kalabukhov.app.spacepictures.impl.ImageSpaceImpl
-import com.kalabukhov.app.spacepictures.rest.SpaceImageApi
+import com.kalabukhov.app.spacepictures.data.impl.ImageSpaceImpl
+import com.kalabukhov.app.spacepictures.data.rest.SpaceImageApi
 import com.kalabukhov.app.spacepictures.ui.main.MainActivity
 import com.kalabukhov.app.spacepictures.ui.open_image.OpenImage
 import com.kalabukhov.app.spacepictures.ui.profile.Profile

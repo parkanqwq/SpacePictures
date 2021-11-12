@@ -5,7 +5,7 @@ import com.kalabukhov.app.spacepictures.IScreens
 import com.kalabukhov.app.spacepictures.domain.ImageSpaceRepo
 import com.kalabukhov.app.spacepictures.domain.entity.ImageSpaceDbEntity
 import com.kalabukhov.app.spacepictures.domain.entity.ImageSpaceEntity
-import com.kalabukhov.app.spacepictures.rest.SpaceImageApi
+import com.kalabukhov.app.spacepictures.data.rest.SpaceImageApi
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers

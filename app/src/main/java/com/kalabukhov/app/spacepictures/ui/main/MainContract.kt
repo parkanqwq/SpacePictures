@@ -2,7 +2,7 @@ package com.kalabukhov.app.spacepictures.ui.main
 
 import com.kalabukhov.app.spacepictures.domain.ImageSpaceRepo
 import com.kalabukhov.app.spacepictures.domain.entity.ImageSpaceEntity
-import com.kalabukhov.app.spacepictures.rest.SpaceImageApi
+import com.kalabukhov.app.spacepictures.data.rest.SpaceImageApi
 import moxy.MvpPresenter
 import moxy.MvpView
 import moxy.viewstate.strategy.alias.AddToEnd

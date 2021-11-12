@@ -1,4 +1,4 @@
-package com.kalabukhov.app.spacepictures.adapter
+package com.kalabukhov.app.spacepictures.ui.profile
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.kalabukhov.app.spacepictures.R
 import com.kalabukhov.app.spacepictures.databinding.ItemImageSpaceBinding
 import com.kalabukhov.app.spacepictures.domain.entity.ImageSpaceDbEntity
-import com.kalabukhov.app.spacepictures.ui.profile.Profile
 import com.squareup.picasso.Picasso
 
 class AdapterImagesDb(

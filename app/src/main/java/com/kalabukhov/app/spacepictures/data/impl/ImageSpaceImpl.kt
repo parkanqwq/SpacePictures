@@ -1,4 +1,4 @@
-package com.kalabukhov.app.spacepictures.impl
+package com.kalabukhov.app.spacepictures.data.impl
 
 import com.kalabukhov.app.spacepictures.data.ImageSpaceDao
 import com.kalabukhov.app.spacepictures.domain.ImageSpaceRepo

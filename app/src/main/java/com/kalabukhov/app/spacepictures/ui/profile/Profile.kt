@@ -10,7 +10,6 @@ import androidx.appcompat.widget.Toolbar
 import com.github.terrakok.cicerone.NavigatorHolder
 import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.kalabukhov.app.spacepictures.R
-import com.kalabukhov.app.spacepictures.adapter.AdapterImagesDb
 import com.kalabukhov.app.spacepictures.app
 import com.kalabukhov.app.spacepictures.databinding.ActivityProfileBinding
 import com.kalabukhov.app.spacepictures.domain.ImageSpaceRepo

@@ -18,7 +18,7 @@ import com.kalabukhov.app.spacepictures.app
 import com.kalabukhov.app.spacepictures.databinding.ActivityMainBinding
 import com.kalabukhov.app.spacepictures.domain.ImageSpaceRepo
 import com.kalabukhov.app.spacepictures.domain.entity.ImageSpaceEntity
-import com.kalabukhov.app.spacepictures.rest.SpaceImageApi
+import com.kalabukhov.app.spacepictures.data.rest.SpaceImageApi
 import com.squareup.picasso.Picasso
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter

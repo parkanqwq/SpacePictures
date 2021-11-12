@@ -1,4 +1,4 @@
-package com.kalabukhov.app.spacepictures.rest
+package com.kalabukhov.app.spacepictures.data.rest
 
 import com.kalabukhov.app.spacepictures.domain.entity.ImageSpaceEntity
 import io.reactivex.Single
