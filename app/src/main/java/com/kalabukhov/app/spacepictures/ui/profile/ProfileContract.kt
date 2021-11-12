@@ -1,6 +1,6 @@
 package com.kalabukhov.app.spacepictures.ui.profile
 
-import com.kalabukhov.app.spacepictures.App
+import com.kalabukhov.app.spacepictures.domain.ImageSpaceRepo
 import com.kalabukhov.app.spacepictures.domain.entity.ImageSpaceDbEntity
 import moxy.MvpPresenter
 import moxy.MvpView
@@ -20,7 +20,7 @@ class ProfileContract {
     }
 
     abstract class Presenter: MvpPresenter<View>() {
-        abstract fun onLoadingImageDb(app: App)
-        abstract fun onDeleteAll(app: App)
+        abstract fun onLoadingImageDb(imageSpaceRepo: ImageSpaceRepo)
+        abstract fun onDeleteAll(imageSpaceRepo: ImageSpaceRepo)
     }
 }

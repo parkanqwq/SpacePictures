@@ -1,6 +1,6 @@
 package com.kalabukhov.app.spacepictures.ui.open_image
 
-import com.kalabukhov.app.spacepictures.App
+import com.kalabukhov.app.spacepictures.domain.ImageSpaceRepo
 import com.kalabukhov.app.spacepictures.domain.entity.ImageSpaceDbEntity
 import moxy.MvpPresenter
 import moxy.MvpView
@@ -17,6 +17,6 @@ class OpenImageContract {
     }
 
     abstract class Presenter: MvpPresenter<View>() {
-        abstract fun onDelete(app: App, imageSpaceDbEntity: ImageSpaceDbEntity)
+        abstract fun onDelete(imageRepo: ImageSpaceRepo, imageSpaceDbEntity: ImageSpaceDbEntity)
     }
 }

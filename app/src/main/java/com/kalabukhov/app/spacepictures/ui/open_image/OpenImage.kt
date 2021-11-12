@@ -5,23 +5,35 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
+import com.github.terrakok.cicerone.NavigatorHolder
+import com.github.terrakok.cicerone.Router
 import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.kalabukhov.app.spacepictures.R
 import com.kalabukhov.app.spacepictures.app
 import com.kalabukhov.app.spacepictures.databinding.ActivityOpenImageBinding
+import com.kalabukhov.app.spacepictures.domain.ImageSpaceRepo
 import com.kalabukhov.app.spacepictures.domain.entity.ImageSpaceDbEntity
-import com.kalabukhov.app.spacepictures.ui.profile.ProfileContract
 import com.squareup.picasso.Picasso
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
-import java.net.URI
+import javax.inject.Inject
 
 class OpenImage : MvpAppCompatActivity(), OpenImageContract.View {
 
-    private val presenter by moxyPresenter { OpenImagePresenter(app.router) }
+    @Inject
+    lateinit var imageRepo: ImageSpaceRepo
+
+    @Inject
+    lateinit var navigatorHolder: NavigatorHolder
+
+    @Inject
+    lateinit var router: Router
+
+    private val presenter by moxyPresenter { OpenImagePresenter(router) }
 
     private lateinit var binding: ActivityOpenImageBinding
     override fun onCreate(savedInstanceState: Bundle?) {
+        app.appComponent.inject(this)
         super.onCreate(savedInstanceState)
         binding = ActivityOpenImageBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -80,7 +92,7 @@ class OpenImage : MvpAppCompatActivity(), OpenImageContract.View {
                 intent.getStringExtra(IMAGE).toString(),
                 intent.getStringExtra(TEXT).toString()
                 )
-                presenter.onDelete(app, imageSpaceDbEntity)
+                presenter.onDelete(imageRepo, imageSpaceDbEntity)
                 return true
             }
         }
@@ -96,11 +108,11 @@ class OpenImage : MvpAppCompatActivity(), OpenImageContract.View {
 
     override fun onResumeFragments() {
         super.onResumeFragments()
-        app.navigatorHolder.setNavigator(navigator)
+        navigatorHolder.setNavigator(navigator)
     }
 
     override fun onPause() {
-        app.navigatorHolder.removeNavigator()
+        navigatorHolder.removeNavigator()
         super.onPause()
     }
 

@@ -1,29 +1,30 @@
 package com.kalabukhov.app.spacepictures.ui.main
 
-import android.widget.Toast
 import com.github.terrakok.cicerone.Router
-import com.kalabukhov.app.spacepictures.App
-import com.kalabukhov.app.spacepictures.Screens
+import com.kalabukhov.app.spacepictures.IScreens
+import com.kalabukhov.app.spacepictures.domain.ImageSpaceRepo
 import com.kalabukhov.app.spacepictures.domain.entity.ImageSpaceDbEntity
 import com.kalabukhov.app.spacepictures.domain.entity.ImageSpaceEntity
+import com.kalabukhov.app.spacepictures.rest.SpaceImageApi
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import java.util.*
 
 class MainPresenter(
-    private val router: Router
-    ) : MainContract.Presenter() {
+    private val router: Router,
+    private val screens: IScreens
+) : MainContract.Presenter() {
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
     private lateinit var imageSpaceEntity: ImageSpaceEntity
 
     override fun onProfileActivity() {
-        router.navigateTo(Screens.Main())
+        router.navigateTo(screens.users())
     }
 
-    override fun onLoadImageWeb(app: App, dateNow: String) {
+    override fun onLoadImageWeb(spaceImageApi: SpaceImageApi, dateNow: String) {
         viewState.setState(MainContract.ViewState.LOADING)
-        compositeDisposable.add(app.spaceImageApi.getPictureOfTheDay(api_key, dateNow)
+        compositeDisposable.add(spaceImageApi.getPictureOfTheDay(api_key, dateNow)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
@@ -38,14 +39,14 @@ class MainPresenter(
                 }))
     }
 
-    override fun onSaveImageDb(app: App) {
+    override fun onSaveImageDb(imageRepo: ImageSpaceRepo) {
         val imageSpaceDbEntity = ImageSpaceDbEntity(
             UUID.randomUUID().toString(),
             imageSpaceEntity.title.toString(),
             imageSpaceEntity.url.toString(),
             imageSpaceEntity.explanation.toString()
         )
-        app.imageRepo.put(imageSpaceDbEntity)
+        imageRepo.put(imageSpaceDbEntity)
         viewState.setState(MainContract.ViewState.DOWNLOAD)
     }
 

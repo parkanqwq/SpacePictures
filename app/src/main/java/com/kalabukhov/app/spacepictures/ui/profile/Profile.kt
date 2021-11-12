@@ -7,18 +7,26 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.widget.Toolbar
+import com.github.terrakok.cicerone.NavigatorHolder
 import com.github.terrakok.cicerone.androidx.AppNavigator
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.kalabukhov.app.spacepictures.R
 import com.kalabukhov.app.spacepictures.adapter.AdapterImagesDb
 import com.kalabukhov.app.spacepictures.app
 import com.kalabukhov.app.spacepictures.databinding.ActivityProfileBinding
+import com.kalabukhov.app.spacepictures.domain.ImageSpaceRepo
 import com.kalabukhov.app.spacepictures.domain.entity.ImageSpaceDbEntity
 import com.kalabukhov.app.spacepictures.ui.open_image.OpenImage
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
+import javax.inject.Inject
 
 class Profile : MvpAppCompatActivity(), ProfileContract.View {
+
+    @Inject
+    lateinit var imageRepo: ImageSpaceRepo
+
+    @Inject
+    lateinit var navigatorHolder: NavigatorHolder
 
     private val presenter by moxyPresenter { ProfilePresenter() }
 
@@ -28,13 +36,14 @@ class Profile : MvpAppCompatActivity(), ProfileContract.View {
         binding = ActivityProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        app.appComponent.inject(this)
         initView()
         initViewToolBar()
     }
 
     private fun initView() {
         binding.imageSpaceRecyclerView.adapter = adapterImages
-        presenter.onLoadingImageDb(app)
+        presenter.onLoadingImageDb(imageRepo)
     }
 
     override fun setState(state: ProfileContract.ViewState) {
@@ -80,11 +89,11 @@ class Profile : MvpAppCompatActivity(), ProfileContract.View {
 
     override fun onResumeFragments() {
         super.onResumeFragments()
-        app.navigatorHolder.setNavigator(navigator)
+        navigatorHolder.setNavigator(navigator)
     }
 
     override fun onPause() {
-        app.navigatorHolder.removeNavigator()
+        navigatorHolder.removeNavigator()
         super.onPause()
     }
 
@@ -108,7 +117,7 @@ class Profile : MvpAppCompatActivity(), ProfileContract.View {
     private fun navigateFragment(id: Int): Boolean {
         when (id) {
             R.id.action_delete_all_image_menu -> {
-                presenter.onDeleteAll(app)
+                presenter.onDeleteAll(imageRepo)
                 return true
             }
         }

@@ -1,25 +1,24 @@
 package com.kalabukhov.app.spacepictures.ui.profile
 
-import android.widget.Toast
-import com.kalabukhov.app.spacepictures.App
+import com.kalabukhov.app.spacepictures.domain.ImageSpaceRepo
 import io.reactivex.disposables.CompositeDisposable
 
 class ProfilePresenter : ProfileContract.Presenter() {
 
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
-    override fun onLoadingImageDb(app: App) {
+    override fun onLoadingImageDb(imageSpaceRepo: ImageSpaceRepo) {
         viewState.setState(ProfileContract.ViewState.LOADING)
         compositeDisposable.add(
-            app.imageRepo.image.subscribe{
+            imageSpaceRepo.image.subscribe{
                 viewState.getImageForAdapter(it)
                 viewState.setState(ProfileContract.ViewState.SUCCESSFUL)
             }
         )
     }
 
-    override fun onDeleteAll(app: App) {
-        app.imageRepo.clear()
+    override fun onDeleteAll(imageSpaceRepo: ImageSpaceRepo) {
+        imageSpaceRepo.clear()
     }
 
     override fun onDestroy() {

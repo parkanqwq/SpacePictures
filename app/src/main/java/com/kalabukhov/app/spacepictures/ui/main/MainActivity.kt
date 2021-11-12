@@ -8,16 +8,22 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.github.terrakok.cicerone.NavigatorHolder
+import com.github.terrakok.cicerone.Router
 import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.kalabukhov.app.spacepictures.IScreens
 import com.kalabukhov.app.spacepictures.R
 import com.kalabukhov.app.spacepictures.app
 import com.kalabukhov.app.spacepictures.databinding.ActivityMainBinding
+import com.kalabukhov.app.spacepictures.domain.ImageSpaceRepo
 import com.kalabukhov.app.spacepictures.domain.entity.ImageSpaceEntity
+import com.kalabukhov.app.spacepictures.rest.SpaceImageApi
 import com.squareup.picasso.Picasso
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
 import java.time.LocalDate
+import javax.inject.Inject
 
 class MainActivity : MvpAppCompatActivity(), MainContract.View {
 
@@ -25,10 +31,26 @@ class MainActivity : MvpAppCompatActivity(), MainContract.View {
     private val dateNow = LocalDate.now()
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
 
-    private val presenter by moxyPresenter { MainPresenter(app.router) }
+    @Inject
+    lateinit var imageRepo: ImageSpaceRepo
+
+    @Inject
+    lateinit var spaceImageApi: SpaceImageApi
+
+    @Inject
+    lateinit var navigatorHolder: NavigatorHolder
+
+    @Inject
+    lateinit var router: Router
+
+    @Inject
+    lateinit var screens: IScreens
+
+    private val presenter by moxyPresenter { MainPresenter(router, screens) }
 
     private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
+        app.appComponent.inject(this)
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -53,7 +75,7 @@ class MainActivity : MvpAppCompatActivity(), MainContract.View {
     }
 
     private fun initView() {
-        presenter.onLoadImageWeb(app, dateNow.toString())
+        presenter.onLoadImageWeb(spaceImageApi, dateNow.toString())
         binding.nextImageBtnView.setOnClickListener {
             dateDayMinus++
             loadImageWeb(dateNow.minusDays(dateDayMinus).toString())
@@ -61,7 +83,7 @@ class MainActivity : MvpAppCompatActivity(), MainContract.View {
     }
 
     override fun loadImageWeb(dateNow: String) {
-        presenter.onLoadImageWeb(app, dateNow)
+        presenter.onLoadImageWeb(spaceImageApi, dateNow)
     }
 
     override fun showImageWed(imageSpaceEntity: ImageSpaceEntity) {
@@ -101,11 +123,11 @@ class MainActivity : MvpAppCompatActivity(), MainContract.View {
 
     override fun onResumeFragments() {
         super.onResumeFragments()
-        app.navigatorHolder.setNavigator(navigator)
+        navigatorHolder.setNavigator(navigator)
     }
 
     override fun onPause() {
-        app.navigatorHolder.removeNavigator()
+        navigatorHolder.removeNavigator()
         super.onPause()
     }
 
@@ -137,7 +159,7 @@ class MainActivity : MvpAppCompatActivity(), MainContract.View {
                 return true
             }
             R.id.action_save_menu -> {
-                presenter.onSaveImageDb(app)
+                presenter.onSaveImageDb(imageRepo)
             }
         }
         return false

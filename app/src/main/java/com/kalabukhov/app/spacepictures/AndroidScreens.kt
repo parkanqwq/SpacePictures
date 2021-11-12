@@ -3,8 +3,8 @@ package com.kalabukhov.app.spacepictures
 import com.github.terrakok.cicerone.androidx.ActivityScreen
 import com.kalabukhov.app.spacepictures.ui.profile.Profile
 
-object Screens {
-    fun Main() = ActivityScreen {
-            context -> Profile.profileScreen(context)
+class AndroidScreens : IScreens {
+    override fun users() = ActivityScreen {
+        context -> Profile.profileScreen(context)
     }
 }

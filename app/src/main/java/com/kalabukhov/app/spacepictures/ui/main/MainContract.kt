@@ -1,8 +1,8 @@
 package com.kalabukhov.app.spacepictures.ui.main
 
-import com.kalabukhov.app.spacepictures.App
-import com.kalabukhov.app.spacepictures.domain.entity.ImageSpaceDbEntity
+import com.kalabukhov.app.spacepictures.domain.ImageSpaceRepo
 import com.kalabukhov.app.spacepictures.domain.entity.ImageSpaceEntity
+import com.kalabukhov.app.spacepictures.rest.SpaceImageApi
 import moxy.MvpPresenter
 import moxy.MvpView
 import moxy.viewstate.strategy.alias.AddToEnd
@@ -26,7 +26,7 @@ class MainContract {
 
     abstract class Presenter: MvpPresenter<View>() {
         abstract fun onProfileActivity()
-        abstract fun onLoadImageWeb(app: App, dateNow: String)
-        abstract fun onSaveImageDb(app: App)
+        abstract fun onLoadImageWeb(spaceImageApi: SpaceImageApi, dateNow: String)
+        abstract fun onSaveImageDb(imageRepo: ImageSpaceRepo)
     }
 }
