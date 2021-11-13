@@ -8,4 +8,6 @@
     <string name="successful">Successful</string>
     <string name="delete">Delete</string>
     <string name="delete_all">Delete all</string>
+    <string name="image_save">Image save</string>
+    <string name="image_not_save">Image not save</string>
 </resources>

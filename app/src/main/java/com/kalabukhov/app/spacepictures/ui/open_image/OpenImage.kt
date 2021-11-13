@@ -5,6 +5,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
+import androidx.core.view.drawToBitmap
 import com.github.terrakok.cicerone.NavigatorHolder
 import com.github.terrakok.cicerone.Router
 import com.github.terrakok.cicerone.androidx.AppNavigator
@@ -16,7 +17,9 @@ import com.kalabukhov.app.spacepictures.domain.entity.ImageSpaceDbEntity
 import com.squareup.picasso.Picasso
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
+import java.util.*
 import javax.inject.Inject
+
 
 class OpenImage : MvpAppCompatActivity(), OpenImageContract.View {
 
@@ -29,7 +32,7 @@ class OpenImage : MvpAppCompatActivity(), OpenImageContract.View {
     @Inject
     lateinit var router: Router
 
-    private val presenter by moxyPresenter { OpenImagePresenter(router) }
+    private val presenter by moxyPresenter { OpenImagePresenter(router, this@OpenImage) }
 
     private lateinit var binding: ActivityOpenImageBinding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,11 +40,9 @@ class OpenImage : MvpAppCompatActivity(), OpenImageContract.View {
         super.onCreate(savedInstanceState)
         binding = ActivityOpenImageBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         initViewToolBar()
         initView()
     }
-
     private fun initView() {
         Picasso.get()
             .load(intent.getStringExtra(IMAGE))
@@ -56,6 +57,14 @@ class OpenImage : MvpAppCompatActivity(), OpenImageContract.View {
         when (state) {
             OpenImageContract.ViewState.DELETE -> {
                 Toast.makeText(this, resources.getText(R.string.delete),
+                    Toast.LENGTH_SHORT).show()
+            }
+            OpenImageContract.ViewState.SAVE -> {
+                Toast.makeText(this, resources.getText(R.string.image_save),
+                    Toast.LENGTH_SHORT).show()
+            }
+            OpenImageContract.ViewState.NOT_SAVE -> {
+                Toast.makeText(this, resources.getText(R.string.image_not_save),
                     Toast.LENGTH_SHORT).show()
             }
         }
@@ -81,8 +90,8 @@ class OpenImage : MvpAppCompatActivity(), OpenImageContract.View {
     private fun navigateFragment(id: Int): Boolean {
         when (id) {
             R.id.action_download_image_menu -> {
-                Toast.makeText(this, "Start download",
-                    Toast.LENGTH_SHORT).show() // TODO: 11.11.2021
+                val bitmap = binding.spaceImageView.drawToBitmap()
+                presenter.onSaveImageToPhone(bitmap, contentResolver, intent)
                 return true
             }
             R.id.action_delete_image_menu -> {
@@ -121,5 +130,6 @@ class OpenImage : MvpAppCompatActivity(), OpenImageContract.View {
         const val IMAGE = "image"
         const val TITTLE = "tittle"
         const val TEXT = "text"
+        const val PERMISSION_CODE = 42
     }
 }
