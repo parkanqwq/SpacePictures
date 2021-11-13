@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Space Pictures</string>
+    <string name="next">Next</string>
+    <string name="profile">Profile</string>
+    <string name="history">History</string>
+    <string name="save_image">Save image</string>
+    <string name="download_image">Download image</string>
+    <string name="successful">Successful</string>
+    <string name="delete">Delete</string>
+    <string name="delete_all">Delete all</string>
+    <string name="image_save">Image save</string>
+    <string name="image_not_save">Image not save</string>
 </resources>
